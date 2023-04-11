@@ -5,10 +5,14 @@ import (
 
 	gotodo "github.com/bvckslvsh/go-to-do"
 	"github.com/bvckslvsh/go-to-do/pkg/handler"
+	"github.com/bvckslvsh/go-to-do/pkg/repository"
+	"github.com/bvckslvsh/go-to-do/pkg/service"
 )
 
 func main() {
-	handlers := new(handler.Handler)
+	repos := repository.NewRepository()
+	services := service.NewService(repos)
+	handlers := handler.NewHandler(services)
 
 	srv := new(gotodo.Server)
 	if err := srv.Run("8000", handlers.InitRoutes()); err != nil {
