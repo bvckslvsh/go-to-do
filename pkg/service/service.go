@@ -1,8 +1,12 @@
 package service
 
-import "github.com/bvckslvsh/go-to-do/pkg/repository"
+import (
+	gotodo "github.com/bvckslvsh/go-to-do"
+	"github.com/bvckslvsh/go-to-do/pkg/repository"
+)
 
 type Authorization interface {
+	CreateUser(user gotodo.User) (int, error)
 }
 
 type TodoList interface {
@@ -18,5 +22,7 @@ type Service struct {
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(repos.Authorization),
+	}
 }
