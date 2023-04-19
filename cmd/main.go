@@ -20,8 +20,8 @@ func main() {
 		Host:     viper.GetString("db.host"),
 		Port:     viper.GetString("db.port"),
 		Username: viper.GetString("db.username"),
-		DBName:   viper.GetString("db.dbname"),
-		SSLMode:  viper.GetString("db.sslmode"),
+		DBName:   viper.GetString("db.db_name"),
+		SSLMode:  viper.GetString("db.ssl_mode"),
 		Password: viper.GetString("db.password"),
 	})
 	if err != nil {
