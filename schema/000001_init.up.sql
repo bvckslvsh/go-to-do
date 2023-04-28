@@ -1,36 +1,40 @@
+
+ 
+
 CREATE TABLE users
 (
-    id serial not null UNIQUE,
-    name VARCHAR(255) not null,
-    username VARCHAR(255) not null,
-    password_hash VARCHAR(255) not null
+    id            serial       not null unique,
+    name          varchar(255) not null,
+    username      varchar(255) not null unique,
+    password_hash varchar(255) not null
 );
 
 CREATE TABLE todo_lists
 (
-    id serial not null UNIQUE,
-    title VARCHAR(255) not null,
-    description VARCHAR(255)
+    id          serial       not null unique,
+    title       varchar(255) not null,
+    description varchar(255)
 );
 
 CREATE TABLE users_lists
 (
-    id serial not null UNIQUE,
-    user_id int REFERENCES users(id) on delete cascade not null,
-    list_id int REFERENCES todo_lists(id) on delete cascade not null
+    id      serial                                           not null unique,
+    user_id int references users (id) on delete cascade      not null,
+    list_id int references todo_lists (id) on delete cascade not null
 );
 
 CREATE TABLE todo_items
 (
-    id serial not null UNIQUE,
-    title VARCHAR(255) not null,
-    description VARCHAR(255),
-       done BOOLEAN not null DEFAULT false
+    id          serial       not null unique,
+    title       varchar(255) not null,
+    description varchar(255),
+    done        boolean      not null default false
 );
+
 
 CREATE TABLE lists_items
 (
-    id serial not null UNIQUE,
-    item_id int REFERENCES todo_items(id) on delete cascade not null,
-    list_id int REFERENCES todo_lists(id) on delete cascade not null
+    id      serial                                           not null unique,
+    item_id int references todo_items (id) on delete cascade not null,
+    list_id int references todo_lists (id) on delete cascade not null
 );
