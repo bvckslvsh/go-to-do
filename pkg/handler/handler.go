@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/bvckslvsh/go-to-do/pkg/service"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,6 +16,12 @@ func NewHandler(services *service.Service) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
+
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"}
+	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type"}
+	router.Use(cors.New(config))
+
 	auth := router.Group("/auth")
 	{
 		auth.POST("/sign-up", h.signUp)
